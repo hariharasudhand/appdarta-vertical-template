@@ -1,0 +1,43 @@
+apiVersion: appdarta.io/v1
+kind: SolutionDesignSpec
+metadata:
+    clarification-ref: specs/analysis/sample-clarification-report.yaml
+    domain: sample
+    name: sample-solution-design
+    stage: design
+    summary: Design-stage recommendation for the sample vertical
+    usecase-ref: specs/analysis/sample-usecase.yaml
+    version: 0.1.0
+signoff:
+    approvals: []
+    required:
+        - name: ""
+          role: domain-architect
+        - name: ""
+          role: platform-owner
+    status: pending
+spec:
+    canonical-model-candidates:
+        - specs/models/canonical/sample.canonical.yaml
+    delivery-plan:
+        - id: plan-01
+          owner: product-manager
+          stage: analyze
+          title: Close analysis and sign-off
+        - id: plan-02
+          owner: domain-architect
+          stage: design
+          title: Finalize design and reusable assets
+        - id: plan-03
+          owner: framework
+          stage: build
+          title: Scaffold runtime and UI assets
+    functional-model-candidates:
+        - specs/models/functional/sample-core.functional.yaml
+    recommended-assets:
+        - kind: ui-module
+          name: sample-operator-console
+          status: new
+        - kind: project-module
+          name: sample-core
+          status: new

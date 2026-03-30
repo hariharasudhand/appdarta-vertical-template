@@ -1,0 +1,70 @@
+apiVersion: appdarta.io/v1
+kind: AppDartaProject
+metadata:
+    domain: sample
+    name: vertical-template
+    summary: Public AppDarta vertical project template
+    version: 0.1.0
+spec:
+    ai:
+        build-codegen-role: design.codegen.primary
+        model-registry-ref: framework://ai/model-registry/default
+        role-bindings-ref: specs/design/sample-model-role-bindings.yaml
+        runtime-reasoning-role: runtime.reasoning.primary
+    commons:
+        - kind: logger
+          link-mode: reference
+          name: project-observability
+          path: commons/project-observability
+          scope: internal
+          summary: Shared logging and audit common for loosely coupled project services
+        - kind: service
+          link-mode: optional
+          name: sample-commons
+          ref: sample-commons@0.1.0
+          scope: external
+          summary: Optional external commons vertical that this project may bind later
+    framework:
+        required-version: 0.1.0
+    models:
+        base: framework://models/base
+        canonical:
+            - specs/models/canonical/sample.canonical.yaml
+        functional:
+            - specs/models/functional/sample-core.functional.yaml
+    modules:
+        - depends-on: []
+          name: sample-core
+          paths:
+            agents: modules/sample-core/specs/agents
+            flows: modules/sample-core/specs/flows
+            orchestration: modules/sample-core/specs/orchestration
+            runtime: modules/sample-core/runtime
+            ui: modules/sample-core/ui
+          subdomain: sample-operations
+          summary: Default sample sub-module for lifecycle-owned assets
+    paths:
+        agents: specs/agents
+        analysis: specs/analysis
+        codegen: specs/codegen
+        demo: demo
+        design: specs/design
+        designs: specs/designs
+        fixtures: fixtures
+        flows: specs/flows
+        orchestration: specs/orchestration
+        policies: specs/policies
+        runtime: runtime
+        tanks: specs/tanks
+        tests: tests
+        ui: ui
+    provisioning:
+        interactive-default: cli
+    ui:
+        default-surface: sample-operator-console
+        modules:
+            - entry: ui/sample-operator-console
+              kind: custom-app
+              mount: project.home.widgets
+              name: sample-operator-console
+        shell-spec: framework://ui/default-shell

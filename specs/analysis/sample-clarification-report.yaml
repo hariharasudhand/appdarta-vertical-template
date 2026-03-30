@@ -1,0 +1,26 @@
+apiVersion: appdarta.io/v1
+kind: UseCaseClarificationReport
+metadata:
+    domain: sample
+    name: sample-clarification-report
+    stage: analyze
+    summary: Clarifications and reuse opportunities for the sample use case
+    usecase-ref: specs/analysis/sample-usecase.yaml
+    version: 0.1.0
+signoff:
+    approvals: []
+    required:
+        - name: ""
+          role: product-manager
+        - name: ""
+          role: enterprise-architect
+    status: pending
+spec:
+    assumptions:
+        - the first release should be operator-readable and policy-controlled
+    identified-entities: []
+    recommended-next-stage: design
+    reuse-candidates: []
+    status: open
+    unresolved-questions:
+        - confirm external systems and source-of-truth ownership

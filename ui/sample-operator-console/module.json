@@ -1,0 +1,17 @@
+{
+  "name": "sample-operator-console",
+  "kind": "custom-app",
+  "mount": "project.home.widgets",
+  "title": "Sample Operator Console",
+  "summary": "Framework-mounted operator surface for sample workflows",
+  "panels": [
+    "Model overview",
+    "Tank and policy status",
+    "Project lifecycle actions"
+  ],
+  "actions": [
+    "validate",
+    "build",
+    "run"
+  ]
+}

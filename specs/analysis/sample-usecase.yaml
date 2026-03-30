@@ -1,0 +1,34 @@
+apiVersion: appdarta.io/v1
+kind: UseCaseSpec
+metadata:
+    domain: sample
+    name: sample-usecase
+    stage: analyze
+    summary: Stage-0 intake for the sample vertical use case
+    version: 0.1.0
+signoff:
+    approvals: []
+    required:
+        - name: ""
+          role: product-manager
+        - name: ""
+          role: domain-architect
+    status: pending
+spec:
+    actors:
+        - product-manager
+        - operator
+    constraints:
+        - keep v1 minimal and auditable
+    inputs:
+        - business-request
+    open-questions:
+        - what existing enterprise assets can be reused?
+    outputs:
+        - recommended-system-design
+    problem:
+        outcome: Describe the expected sample operator outcome and success criteria.
+        statement: Describe the core sample business problem this project should solve.
+    source-systems: []
+    success-metrics:
+        - operator can explain what the agents are doing and why

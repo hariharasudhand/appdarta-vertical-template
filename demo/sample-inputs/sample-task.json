@@ -1,0 +1,8 @@
+{
+  "case_id": "vertical-template-case-001",
+  "question": "What should the sample agent review next?",
+  "signals": [
+    "default"
+  ],
+  "task_type": "sample-review"
+}

@@ -1,0 +1,26 @@
+apiVersion: appdarta.io/v1
+kind: CanonicalModel
+metadata:
+    domain: sample
+    extends: framework://models/base
+    name: sample-canonical-model
+    summary: Canonical domain model for sample
+    version: 0.1.0
+spec:
+    entities:
+        - attributes:
+            - name: id
+              required: true
+              type: string
+            - name: status
+              required: true
+              type: string
+            - name: owner
+              type: string
+          category: workflow
+          description: Core case or unit of work for the sample domain
+          name: SampleCase
+    maps-framework-entities:
+        - domain: SampleCase
+          framework: Task
+    relationships: []

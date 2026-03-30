@@ -1,0 +1,25 @@
+apiVersion: appdarta.io/v1
+kind: ModelRoleBindingSpec
+metadata:
+    domain: sample
+    name: sample-model-role-bindings
+    summary: Central model-role bindings for the sample vertical
+    version: 0.1.0
+spec:
+    bindings:
+        - enabled: true
+          name: build-primary
+          role: design.codegen.primary
+          scope: build
+          target: project
+        - enabled: true
+          name: runtime-primary
+          role: runtime.reasoning.primary
+          scope: runtime
+          target: project
+        - enabled: true
+          name: runtime-fallback
+          role: runtime.reasoning.fallback
+          scope: runtime
+          target: project
+    registry-ref: framework://ai/model-registry/default

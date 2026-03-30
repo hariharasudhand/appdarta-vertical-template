@@ -1,0 +1,15 @@
+agent_spec: ../specs/agents/sample-core-agent.yaml
+artifact_output: artifacts/sample-reference-run.json
+flow_spec: ../specs/flows/sample-core-flow.yaml
+hydrate:
+    client_id: demo-client
+    partitions:
+        - reference-data
+    query: sample default review query
+    top_k: 5
+ingest: []
+manifest_only: true
+name: sample-reference
+result_output: artifacts/sample-reference-result.json
+tank_spec: ../specs/tanks/sample-knowledge-tank.yaml
+task_input: sample-inputs/sample-task.json

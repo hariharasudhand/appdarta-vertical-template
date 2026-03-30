@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+
+if ! command -v darta >/dev/null 2>&1; then
+  echo "darta is not on PATH." >&2
+  echo "Install an AppDarta framework release and add APPDARTA_HOME/bin to PATH first." >&2
+  exit 2
+fi
+
+exec darta project bootstrap --project .

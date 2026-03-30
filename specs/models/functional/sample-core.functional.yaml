@@ -1,0 +1,29 @@
+apiVersion: appdarta.io/v1
+kind: FunctionalModel
+metadata:
+    domain: sample
+    extends: specs/models/canonical/sample.canonical.yaml
+    name: sample-core-functional-model
+    summary: Core functional model for sample workflows
+    version: 0.1.0
+spec:
+    capabilities:
+        - inputs:
+            - request
+            - context
+          name: sample-review
+          outputs:
+            - decision
+            - evidence
+          purpose: Review and decide core sample tasks
+    ui-surfaces:
+        - binds-capabilities:
+            - sample-review
+          kind: operator-console
+          name: sample-operator-console
+    workflows:
+        - actors:
+            - operator
+            - agent
+          goal: Intake and route sample work safely
+          name: sample-intake
