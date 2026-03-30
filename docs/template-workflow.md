@@ -10,4 +10,10 @@ darta design inspect
 darta design compare
 ```
 
-Then evolve the vertical through code generation, build, runtime, and deployment stages.
+Then evolve the vertical through:
+
+- code generation
+- build
+- runtime
+- test
+- deploy
