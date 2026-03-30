@@ -1,5 +1,8 @@
 # AppDarta Vertical Template
 
+> **Beta**  
+> AppDarta is in active development. Early trials and feedback are welcome, but do not expect this starter template or every lifecycle command to work completely yet.
+
 This repository is the public starter template for an AppDarta vertical project.
 
 The framework product lives in [`appdarta-framework`](https://github.com/hariharasudhand/appdarta-framework). Start there if you need install docs, architecture, lifecycle guidance, or releases.
