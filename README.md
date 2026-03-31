@@ -22,9 +22,7 @@ This template is meant to become your business-scoped vertical repository.
 
 ## Getting Started
 
-1. Install an AppDarta Engine release.
-2. Add `APPDARTA_HOME/bin` to `PATH`.
-3. Run:
+Start here inside the template repo:
 
 ```bash
 ./bin/bootstrap-framework
@@ -34,6 +32,14 @@ darta analyze inspect
 darta design inspect
 darta design compare
 ```
+
+`./bin/bootstrap-framework` is the entry point. It will:
+
+1. check whether `darta` is installed
+2. detect whether the installed AppDarta Engine is too old
+3. fetch the installer from `appdarta-framework` if needed
+4. install or refresh AppDarta Engine
+5. run `darta project bootstrap`
 
 Then continue with:
 
@@ -61,3 +67,4 @@ darta run project
 - Keep framework source separate from this repo.
 - Vertical repos should stay business-scoped.
 - Keep `appdarta.framework.yaml` committed so the project stays pinned to the intended AppDarta Engine release.
+- `./bin/bootstrap-framework` is the supported first command for a fresh developer machine.

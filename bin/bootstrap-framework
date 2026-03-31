@@ -1,9 +1,31 @@
 #!/usr/bin/env sh
 set -eu
 
+installer_url="${APPDARTA_INSTALLER_URL:-https://raw.githubusercontent.com/hariharasudhand/appdarta-framework/master/scripts/install_framework.sh}"
+
+needs_install=0
 if ! command -v darta >/dev/null 2>&1; then
-  echo "darta is not on PATH." >&2
-  echo "Install an AppDarta framework release and add APPDARTA_HOME/bin to PATH first." >&2
+  needs_install=1
+elif ! darta project bootstrap --help >/dev/null 2>&1; then
+  needs_install=1
+fi
+
+if [ "$needs_install" -eq 1 ]; then
+  echo "AppDarta Engine is missing or outdated. Bootstrapping the latest installer from appdarta-framework..."
+  if ! command -v curl >/dev/null 2>&1; then
+    echo "curl is required to download the AppDarta installer." >&2
+    exit 2
+  fi
+  tmp_dir="$(mktemp -d)"
+  trap 'rm -rf "$tmp_dir"' EXIT
+  curl -fsSL "$installer_url" -o "$tmp_dir/install_framework.sh"
+  chmod +x "$tmp_dir/install_framework.sh"
+  "$tmp_dir/install_framework.sh"
+fi
+
+if ! command -v darta >/dev/null 2>&1; then
+  echo "darta is still not available on PATH after install." >&2
+  echo "Set APPDARTA_HOME and PATH, then rerun this command." >&2
   exit 2
 fi
 
