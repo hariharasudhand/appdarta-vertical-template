@@ -2,11 +2,15 @@
 set -eu
 
 installer_url="${APPDARTA_INSTALLER_URL:-https://raw.githubusercontent.com/hariharasudhand/appdarta-framework/master/scripts/install_framework.sh}"
+appdarta_home="${APPDARTA_HOME:-$HOME/.appdarta}"
+required_version="$(sed -n 's/^[[:space:]]*required-framework-version:[[:space:]]*//p' appdarta.framework.yaml | head -n1 | tr -d '"' | tr -d "'")"
 
 needs_install=0
 if ! command -v darta >/dev/null 2>&1; then
   needs_install=1
 elif ! darta project --help 2>/dev/null | grep -q "bootstrap"; then
+  needs_install=1
+elif [ -n "${required_version:-}" ] && [ ! -d "$appdarta_home/framework/releases/$required_version" ]; then
   needs_install=1
 fi
 
