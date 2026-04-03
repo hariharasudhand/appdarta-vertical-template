@@ -1,0 +1,25 @@
+apiVersion: appdarta.io/v1
+kind: AgentSpec
+metadata:
+    agent-type: util
+    domain: sample
+    name: enterprise-registry-sync
+    plane: runtime
+    purpose: registry
+    sharing-scope: enterprise
+    version: 0.1.0
+spec:
+    capabilities:
+        - registry
+    marketplace:
+        price: included
+        tier: enterprise
+    model:
+        ref: framework://models/base
+    runtime:
+        args: []
+        command: ./bin/enterprise-registry-sync
+        mode: process
+        timeout: 30s
+        trust-tier: trusted
+        type: process

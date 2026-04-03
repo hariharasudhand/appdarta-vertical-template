@@ -1,0 +1,25 @@
+apiVersion: appdarta.io/v1
+kind: AgentSpec
+metadata:
+    agent-type: common
+    domain: sample
+    name: enterprise-approval-coordinator
+    plane: runtime
+    purpose: approval
+    sharing-scope: enterprise
+    version: 0.1.0
+spec:
+    capabilities:
+        - approval
+    marketplace:
+        price: included
+        tier: enterprise
+    model:
+        ref: framework://models/base
+    runtime:
+        args: []
+        command: ./bin/enterprise-approval-coordinator
+        mode: process
+        timeout: 30s
+        trust-tier: trusted
+        type: process

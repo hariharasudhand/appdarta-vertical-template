@@ -1,70 +1,121 @@
 apiVersion: appdarta.io/v1
 kind: AppDartaProject
 metadata:
-    domain: sample
     name: vertical-template
-    summary: Public AppDarta vertical project template
+    domain: sample
     version: 0.1.0
+    summary: Public AppDarta vertical project template
 spec:
-    ai:
-        build-codegen-role: design.codegen.primary
-        model-registry-ref: framework://ai/model-registry/default
-        role-bindings-ref: specs/design/sample-model-role-bindings.yaml
-        runtime-reasoning-role: runtime.reasoning.primary
-    commons:
-        - kind: logger
-          link-mode: reference
-          name: project-observability
-          path: commons/project-observability
-          scope: internal
-          summary: Shared logging and audit common for loosely coupled project services
-        - kind: service
-          link-mode: optional
-          name: sample-commons
-          ref: sample-commons@0.1.0
-          scope: external
-          summary: Optional external commons vertical that this project may bind later
     framework:
         required-version: 0.1.0
+    ai:
+        ai-config-ref: specs/design/sample-ai-config.yaml
+        model-registry-ref: framework://ai/model-registry/default
+        role-bindings-ref: specs/design/sample-model-role-bindings.yaml
+        build-codegen-role: design.codegen.primary
+        runtime-reasoning-role: runtime.reasoning.primary
+        shared-agents:
+            - name: enterprise-approval-coordinator
+              purpose: approval
+              agent-type: common
+              sharing-scope: enterprise
+              runtime-mode: process
+              reuse-policy: reuse-first
+              ref: specs/agents/enterprise-approval-coordinator.yaml
+              enabled: true
+            - name: enterprise-registry-sync
+              purpose: registry
+              agent-type: util
+              sharing-scope: enterprise
+              runtime-mode: process
+              reuse-policy: reuse-first
+              ref: specs/agents/enterprise-registry-sync.yaml
+              enabled: true
+        shared-tanks:
+            - name: enterprise-accounting
+              purpose: accounting
+              tank-type: common
+              sharing-scope: enterprise
+              data-model: relational
+              backing-profile: local-embedded
+              connection-ref: local://embedded
+              reuse-policy: reuse-first
+              ref: specs/tanks/enterprise-accounting.yaml
+              enabled: true
+            - name: enterprise-users
+              purpose: identity
+              tank-type: common
+              sharing-scope: enterprise
+              data-model: document
+              backing-profile: local-embedded
+              connection-ref: local://embedded
+              reuse-policy: reuse-first
+              ref: specs/tanks/enterprise-users.yaml
+              enabled: true
+            - name: enterprise-common-registry
+              purpose: registry
+              tank-type: util
+              sharing-scope: enterprise
+              data-model: document
+              backing-profile: local-embedded
+              connection-ref: local://embedded
+              reuse-policy: reuse-first
+              ref: specs/tanks/enterprise-common-registry.yaml
+              enabled: true
     models:
         base: framework://models/base
         canonical:
             - specs/models/canonical/sample.canonical.yaml
         functional:
             - specs/models/functional/sample-core.functional.yaml
+    paths:
+        analysis: specs/analysis
+        design: specs/design
+        codegen: specs/codegen
+        designs: specs/designs
+        agents: specs/agents
+        flows: specs/flows
+        orchestration: specs/orchestration
+        tanks: specs/tanks
+        policies: specs/policies
+        runtime: runtime
+        ui: ui
+        demo: demo
+        fixtures: fixtures
+        tests: tests
+    ui:
+        shell-spec: framework://ui/default-shell
+        default-surface: sample-operator-console
+        modules:
+            - name: sample-operator-console
+              kind: custom-app
+              entry: ui/sample-operator-console
+              mount: project.home.widgets
+    provisioning:
+        interactive-default: cli
     modules:
-        - depends-on: []
-          name: sample-core
+        - name: sample-core
+          subdomain: sample-operations
+          summary: Default sample sub-module for lifecycle-owned assets
+          depends-on: []
           paths:
             agents: modules/sample-core/specs/agents
             flows: modules/sample-core/specs/flows
             orchestration: modules/sample-core/specs/orchestration
             runtime: modules/sample-core/runtime
             ui: modules/sample-core/ui
-          subdomain: sample-operations
-          summary: Default sample sub-module for lifecycle-owned assets
-    paths:
-        agents: specs/agents
-        analysis: specs/analysis
-        codegen: specs/codegen
-        demo: demo
-        design: specs/design
-        designs: specs/designs
-        fixtures: fixtures
-        flows: specs/flows
-        orchestration: specs/orchestration
-        policies: specs/policies
-        runtime: runtime
-        tanks: specs/tanks
-        tests: tests
-        ui: ui
-    provisioning:
-        interactive-default: cli
-    ui:
-        default-surface: sample-operator-console
-        modules:
-            - entry: ui/sample-operator-console
-              kind: custom-app
-              mount: project.home.widgets
-              name: sample-operator-console
-        shell-spec: framework://ui/default-shell
+    commons:
+        - name: project-observability
+          kind: logger
+          summary: Shared logging and audit common for loosely coupled project services
+          scope: internal
+          path: commons/project-observability
+          ref: ""
+          link-mode: reference
+        - name: sample-commons
+          kind: service
+          summary: Optional external commons vertical that this project may bind later
+          scope: external
+          path: ""
+          ref: sample-commons@0.1.0
+          link-mode: optional

@@ -1,0 +1,6 @@
+title: Sample business interaction
+order: Operator, Intake, Review, Decision
+Operator -> Intake: Submit sample request
+Intake -> Review: Frame context and constraints
+Review -> Decision: Recommend next action
+Decision -> Operator: Human approval or escalation

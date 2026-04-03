@@ -1,0 +1,8 @@
+title: sample primary runtime path
+order: Operator, Gateway, Runtime, Tank
+Operator -> Gateway: Submit sample request
+Gateway -> Runtime: Route governed task
+Runtime -> Tank: Read context and evidence
+Tank --> Runtime: Retrieved business context
+Runtime --> Gateway: Decision and rationale
+Gateway --> Operator: Guided next action

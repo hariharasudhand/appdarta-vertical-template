@@ -7,19 +7,48 @@ metadata:
     version: 0.1.0
 spec:
     bindings:
-        - enabled: true
-          name: build-primary
-          role: design.codegen.primary
-          scope: build
+        - country-profile-override: default-us
+          enabled: true
+          name: design-primary
+          role: design.spec.primary
+          scope: design
           target: project
-        - enabled: true
+        - country-profile-override: default-us
+          enabled: true
+          name: codegen-primary
+          role: design.codegen.primary
+          scope: codegen
+          target: project
+        - country-profile-override: default-us
+          daily-cost-limit-usd: 25
+          daily-token-limit: 500000
+          enabled: true
           name: runtime-primary
           role: runtime.reasoning.primary
           scope: runtime
           target: project
-        - enabled: true
+        - country-profile-override: default-us
+          enabled: true
           name: runtime-fallback
           role: runtime.reasoning.fallback
           scope: runtime
+          target: project
+        - country-profile-override: default-us
+          enabled: true
+          name: tank-embedding
+          role: tank.embedding.primary
+          scope: tank
+          target: project
+        - country-profile-override: default-us
+          enabled: true
+          name: tank-rerank
+          role: tank.retrieval.rerank
+          scope: tank
+          target: project
+        - country-profile-override: default-us
+          enabled: true
+          name: tank-synthesis
+          role: tank.answer.synthesis
+          scope: tank
           target: project
     registry-ref: framework://ai/model-registry/default

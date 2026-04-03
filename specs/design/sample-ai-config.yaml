@@ -1,0 +1,35 @@
+apiVersion: appdarta.io/v1
+kind: VerticalAIConfigSpec
+metadata:
+    domain: sample
+    name: sample-ai-config
+    summary: Framework-governed AI routing and budget policy for the sample vertical
+    version: 0.1.0
+spec:
+    budget:
+        daily-cost-limit-usd: 50
+        daily-token-limit: 1000000
+        warn-at-percent: 80
+    ide-policy:
+        accounting-mode: estimated
+        allow-external-ide: true
+        allowed-stages:
+            - analyze
+            - design
+            - codegen
+    pricing:
+        default-country-profile: default-us
+        reporting-currency: USD
+    recommended-runtime-strategy: hybrid
+    registry-ref: framework://ai/model-registry/default
+    role-bindings-ref: specs/design/sample-model-role-bindings.yaml
+    tank-bindings:
+        - purpose: accounting
+          ref: specs/tanks/enterprise-accounting.yaml
+          required: true
+        - purpose: identity
+          ref: specs/tanks/enterprise-users.yaml
+          required: true
+        - purpose: registry
+          ref: specs/tanks/enterprise-common-registry.yaml
+          required: true
