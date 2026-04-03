@@ -33,4 +33,6 @@ if ! command -v darta >/dev/null 2>&1; then
   exit 2
 fi
 
-exec darta project bootstrap --project .
+echo "AppDarta Engine is ready."
+echo "Launching the guided project path with 'darta run-wizard'..."
+exec darta run-wizard
