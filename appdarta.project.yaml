@@ -5,6 +5,7 @@ metadata:
     domain: sample
     version: 0.1.0
     summary: Public AppDarta vertical project template
+    goal: ""
 spec:
     framework:
         required-version: 0.1.0
