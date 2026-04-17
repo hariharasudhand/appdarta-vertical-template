@@ -8,18 +8,21 @@ metadata:
 spec:
     bindings:
         - country-profile-override: default-us
+          credential-ref: design/project-primary
           enabled: true
           name: design-primary
           role: design.spec.primary
           scope: design
           target: project
         - country-profile-override: default-us
+          credential-ref: design/project-primary
           enabled: true
           name: codegen-primary
           role: design.codegen.primary
           scope: codegen
           target: project
         - country-profile-override: default-us
+          credential-ref: runtime/project-primary
           daily-cost-limit-usd: 25
           daily-token-limit: 500000
           enabled: true
@@ -28,24 +31,28 @@ spec:
           scope: runtime
           target: project
         - country-profile-override: default-us
+          credential-ref: runtime/project-fallback
           enabled: true
           name: runtime-fallback
           role: runtime.reasoning.fallback
           scope: runtime
           target: project
         - country-profile-override: default-us
+          credential-ref: runtime/tank-embedding
           enabled: true
           name: tank-embedding
           role: tank.embedding.primary
           scope: tank
           target: project
         - country-profile-override: default-us
+          credential-ref: runtime/tank-rerank
           enabled: true
           name: tank-rerank
           role: tank.retrieval.rerank
           scope: tank
           target: project
         - country-profile-override: default-us
+          credential-ref: runtime/tank-synthesis
           enabled: true
           name: tank-synthesis
           role: tank.answer.synthesis

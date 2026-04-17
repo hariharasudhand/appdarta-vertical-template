@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "darta": {
+      "command": "darta",
+      "args": ["mcp", "serve", "--project", "."],
+      "env": {}
+    }
+  }
+}

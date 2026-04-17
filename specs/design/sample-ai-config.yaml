@@ -23,6 +23,7 @@ spec:
     recommended-runtime-strategy: hybrid
     registry-ref: framework://ai/model-registry/default
     role-bindings-ref: specs/design/sample-model-role-bindings.yaml
+    runtime-policy-ref: specs/runtime/sample-runtime-ai-policy.yaml
     tank-bindings:
         - purpose: accounting
           ref: specs/tanks/enterprise-accounting.yaml
