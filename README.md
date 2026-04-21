@@ -7,152 +7,130 @@
   <p><strong>A framework from <a href="https://www.dhruvialabs.com/">Dhruvia Labs</a></strong></p>
 </div>
 
-# AppDarta Vertical Template
+# Darta Vertical Template
 
-> **Beta**  
-> AppDarta is in active development. Early trials and feedback are welcome, but do not expect this starter template or every lifecycle command to work completely yet.
+> **Beta** — Active development. Early trials and feedback are welcome.
 
-This repository is the public starter template for an AppDarta vertical project.
+This is the public starter template for a Darta vertical project.
 
-The framework product lives in [`appdarta-framework`](https://github.com/hariharasudhand/appdarta-framework). Start there if you need install docs, architecture, lifecycle guidance, or releases.
+A vertical is your domain app — it carries your agents, your knowledge, your flows, and your rules. The Darta Framework handles everything else: execution, routing, context, policy evaluation, and lifecycle management.
 
-## What This Repository Is
+The framework product lives in [`appdarta-framework`](https://github.com/hariharasudhand/appdarta-framework). **Install the framework first before working in this template.**
 
-It contains:
+---
 
-- `appdarta.project.yaml`
-- `appdarta.framework.yaml`
+## What This Repository Contains
+
+- `appdarta.project.yaml` — project manifest
+- `appdarta.framework.yaml` — framework release pin
 - root lifecycle starter specs
-- starter modules and commons layout
+- starter modules, commons, runtime, and UI layout
 
-It does not contain framework source or framework release artifacts.
+It does not contain framework source or framework binaries. Those live in `APPDARTA_HOME` after install.
 
-This template is meant to become your business-scoped vertical repository.
+---
 
-The working model is simple:
+## Prerequisites
 
-- your repo owns the domain workflow
-- AppDarta owns the framework machinery underneath it
+Install the Darta Framework once before cloning this template:
 
-That lets your team focus on the functional piece while the framework handles the technical lifting around runtime, gateway, policy, AI governance, and knowledge integration.
+```bash
+# Add to your shell profile (~/.bashrc, ~/.zshrc, etc.)
+export APPDARTA_HOME="${APPDARTA_HOME:-$HOME/.appdarta}"
+export PATH="$APPDARTA_HOME/bin:$PATH"
 
-## Start Here
+# Download and run the installer — select vDR.0.3 when prompted
+curl -fsSL https://raw.githubusercontent.com/hariharasudhand/appdarta-framework/main/scripts/install_framework.sh -o install_darta.sh
+bash install_darta.sh
+```
 
-If you just want the fastest path:
+See [`appdarta-framework`](https://github.com/hariharasudhand/appdarta-framework) for full install docs.
+
+---
+
+## Getting Started
+
+Clone this template, then run the wizard:
+
+```bash
+git clone https://github.com/hariharasudhand/appdarta-vertical-template.git my-vertical
+cd my-vertical
+darta run-wizard
+darta doctor --skip-stack
+```
+
+`darta run-wizard` personalises the template in place — it asks for your project name, domain, and summary, pins the framework release, and sets up lifecycle state. Rerun it to resume from where you left off.
+
+Once the wizard is done, move through the lifecycle:
+
+```bash
+darta project inspect --file .
+darta analyze inspect --project .
+darta design inspect --project .
+darta validate --project .
+darta build project --project .
+darta stack up
+darta ui serve
+darta project run --project .
+```
+
+`darta stack up` starts the local framework services (runtime host, context service, gateway).  
+`darta ui serve` opens the browser-based wizard — it covers the full lifecycle from Setup through to Deploy.
+
+---
+
+## Typical Full Lifecycle
 
 ```bash
 darta run-wizard
 darta doctor --skip-stack
 darta project inspect --file .
+darta analyze inspect --project .
+darta design inspect --project .
 darta validate --project .
+darta codegen plan --project .
+darta codegen prepare --project . --task <task-id>
 darta build project --project .
-darta run project --project .
+darta stack up
+darta ui serve
+darta project run --project .
+darta deploy plan --project .
 ```
 
-That path should tell you:
-
-- the project is personalized correctly
-- the pinned framework release is usable
-- the starter specs validate
-- the vertical can build and run through the framework lifecycle
-
-## Validation Runbooks
-
-For a concrete, operator-style walkthrough instead of generic lifecycle docs, use:
-
-- [Healthcare Validation Runbook](docs/healthcare-validation-runbook.md)
-
-## Getting Started
-
-Start here inside the template repo:
-
-```bash
-darta run-wizard
-darta doctor --skip-stack
-darta project inspect
-darta analyze inspect
-darta design inspect
-darta design compare
-```
-
-`darta run-wizard` is the guided project path after the framework is available. It should:
-
-1. ask for the project name, domain, and summary
-2. personalize the checked-out template in place
-3. pin the project to the intended AppDarta Engine release or `dev` local-source mode
-4. create lifecycle state for staged resume
-5. stop and ask you to rerun if the repo directory needs to be renamed
-6. resume from the first incomplete stage on rerun
-
-Then continue with:
-
-- `darta codegen plan --project .`
-- `darta codegen prepare --project . --task <task-id>`
-- `darta build project`
-- `darta run project`
+---
 
 ## What You Configure In A Vertical
 
-Use the template repo to define business-scoped behavior:
+| What you declare | File | Schema |
+|---|---|---|
+| An agent and its runtime | `specs/agents/*.yaml` | `AgentSpec` |
+| How agents coordinate | `specs/flows/*.yaml` | `FlowSpec` |
+| Decision rules | `specs/policies/*.yaml` | `PolicySpec` |
+| Domain knowledge | `specs/tanks/*.yaml` | `DataTankSpec` |
+| Gateway execution plan | `specs/orchestration/*.yaml` | `OrchestrationSpec` |
 
-- use case and design specs
-- domain agents
-- domain policies
-- domain tanks and sources
-- flows and orchestration bindings
-- runtime modules and demo fixtures
+You do not modify the platform. The framework owns the technical substrate — runtime dispatch, gateway, policy evaluation, tank integration, and AI/provider routing.
 
-The framework continues to handle:
+---
 
-- lifecycle commands
-- gateway/runtime contracts
-- AI/provider control plane
-- tank integration surfaces
-- operator/runtime visibility
+## Validation Runbooks
 
-This split is the reason the template matters. You are not starting from a blank repo and rebuilding the technical substrate yourself.
+For a concrete operator-style walkthrough:
 
-## Where AI Is Configured
+- [Healthcare Validation Runbook](docs/healthcare-validation-runbook.md)
 
-In a vertical project, the practical AI story is:
-
-- business specs describe where AI is needed
-- framework-managed roles decide which provider/model path is allowed
-- the framework records token and cost usage
-
-Look for:
-
-- design-time AI config in `specs/design/`
-- framework-visible role and provider bindings through the project’s framework-managed AI configuration
-
-The point is to keep AI usage visible and governed instead of burying provider calls in random project code.
-
-## Typical CLI Flow
-
-```bash
-darta run-wizard
-darta doctor --skip-stack
-darta project inspect
-darta analyze inspect
-darta design inspect
-darta design compare
-darta codegen plan --project .
-darta build project
-darta run project
-```
+---
 
 ## Notes
 
-- Keep framework source separate from this repo.
-- Vertical repos should stay business-scoped.
-- Keep `appdarta.framework.yaml` committed so the project stays pinned to the intended AppDarta Engine release.
-- `darta run-wizard` is the supported first command inside a fresh template checkout.
-- `darta project bootstrap` is only needed when you want to switch or reinstall the pinned framework release explicitly.
+- Keep `appdarta.framework.yaml` committed — it pins the required framework release.
+- `darta run-wizard` is the first command to run in a fresh template checkout.
+- `darta project bootstrap` is only needed if you want to explicitly switch or reinstall the pinned framework release.
+- Keep framework source and binaries out of this repo — they live in `APPDARTA_HOME`.
 
 ---
 
 <div align="center">
   <p><strong>Currently available for trial use.</strong></p>
-  <p>For production adoption, rollout support, or commercial discussions, contact Dhruvia Labs.</p>
-  <p>We support flexible pricing, including outcome-based engagement models where that fits better than heavy fixed pricing.</p>
+  <p>For production adoption, rollout support, or commercial discussions, contact <a href="https://www.dhruvialabs.com/">Dhruvia Labs</a>.</p>
 </div>
