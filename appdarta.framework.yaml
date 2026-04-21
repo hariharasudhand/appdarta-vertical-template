@@ -2,9 +2,9 @@ apiVersion: appdarta.io/v1
 kind: FrameworkBindingSpec
 metadata:
   name: vertical-template-framework-binding
-  version: vDR.0.2
+  version: DR.0.3
   summary: Framework release lock and bootstrap metadata for this public vertical template
 spec:
-  required-framework-version: vDR.0.2
-  schema-bundle-version: vDR.0.2
+  required-framework-version: DR.0.3
+  schema-bundle-version: DR.0.3
   install-source: release
