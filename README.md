@@ -30,21 +30,57 @@ It does not contain framework source or framework binaries. Those live in `APPDA
 
 ---
 
+## Before You Start — Read These
+
+If you are new to Darta, read these in order before touching any code. Each one is short.
+
+| # | Document | Why |
+|---|---|---|
+| 1 | [appdarta-framework README](https://github.com/hariharasudhand/appdarta-framework#readme) | What Darta is, the three products, and the install path |
+| 2 | [Component model](https://github.com/hariharasudhand/appdarta-framework/blob/master/docs/component-model.md) | What the platform owns vs what your vertical owns — the most important mental model |
+| 3 | [Architecture](https://github.com/hariharasudhand/appdarta-framework/blob/master/docs/architecture.md) | How CLI → Gateway → Runtime → Tanks fit together |
+| 4 | [Data tanks](https://github.com/hariharasudhand/appdarta-framework/blob/master/docs/data-tanks.md) | How verticals manage and attach domain knowledge |
+| 5 | [Darta Dhil](https://github.com/hariharasudhand/appdarta-framework/blob/master/docs/dhil.md) | How AI routing works — needed before wiring any AI actions |
+| 6 | [Vertical lifecycle walkthrough](https://github.com/hariharasudhand/appdarta-framework/blob/master/docs/quickstart.md) | End-to-end path from setup to deploy |
+
+---
+
 ## Prerequisites
 
-Install the Darta Framework once before cloning this template:
+Install the Darta Framework once before cloning this template.
+
+### Mac / Linux
+
+Add to your shell profile (`~/.zshrc` or `~/.bashrc`), then restart your terminal:
 
 ```bash
-# Add to your shell profile (~/.bashrc, ~/.zshrc, etc.)
 export APPDARTA_HOME="${APPDARTA_HOME:-$HOME/.appdarta}"
 export PATH="$APPDARTA_HOME/bin:$PATH"
+```
 
-# Download and run the installer — select vDR.0.3 when prompted
+Download and run the installer:
+
+```bash
 curl -fsSL https://raw.githubusercontent.com/hariharasudhand/appdarta-framework/main/scripts/install_framework.sh -o install_darta.sh
 bash install_darta.sh
 ```
 
-See [`appdarta-framework`](https://github.com/hariharasudhand/appdarta-framework) for full install docs.
+When prompted, select **vDR.0.3**. Discard `install_darta.sh` after.
+
+### Windows
+
+**Recommended: WSL2.** Install [WSL2 with Ubuntu](https://learn.microsoft.com/en-us/windows/wsl/install), open a WSL2 terminal, and follow the Mac / Linux steps above exactly.
+
+**Alternative: Git Bash.** Install [Git for Windows](https://git-scm.com/download/win), open Git Bash, and run the same curl and bash steps. The installer writes `darta.cmd` and `darta.ps1` launchers into `%USERPROFILE%\.appdarta\bin` — add that folder to your Windows `PATH` via System → Environment Variables.
+
+> WSL2 is strongly preferred. Some framework services started by `darta stack up` run best in a proper Linux environment.
+
+### Verify
+
+```bash
+darta version
+darta framework current
+```
 
 ---
 
