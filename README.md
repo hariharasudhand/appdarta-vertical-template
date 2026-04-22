@@ -49,7 +49,9 @@ If you are new to Darta, read these in order before touching any code. Each one 
 
 Install the Darta Framework once before cloning this template.
 
-### Mac / Linux
+**Supported platforms:** macOS (Apple Silicon and Intel), Linux x86_64 and arm64, and Windows via WSL2. Native Windows is not supported.
+
+### macOS / Linux
 
 Add to your shell profile (`~/.zshrc` or `~/.bashrc`), then restart your terminal:
 
@@ -65,15 +67,11 @@ curl -fsSL https://raw.githubusercontent.com/hariharasudhand/appdarta-framework/
 bash install_darta.sh
 ```
 
-When prompted, select **vDR.0.3**. Discard `install_darta.sh` after.
+The installer detects your OS and CPU automatically and downloads the right binary. When prompted, select **vDR.0.4**. Discard `install_darta.sh` after.
 
 ### Windows
 
-**Recommended: WSL2.** Install [WSL2 with Ubuntu](https://learn.microsoft.com/en-us/windows/wsl/install), open a WSL2 terminal, and follow the Mac / Linux steps above exactly.
-
-**Alternative: Git Bash.** Install [Git for Windows](https://git-scm.com/download/win), open Git Bash, and run the same curl and bash steps. The installer writes `darta.cmd` and `darta.ps1` launchers into `%USERPROFILE%\.appdarta\bin` — add that folder to your Windows `PATH` via System → Environment Variables.
-
-> WSL2 is strongly preferred. Some framework services started by `darta stack up` run best in a proper Linux environment.
+Install [WSL2 with Ubuntu](https://learn.microsoft.com/en-us/windows/wsl/install), open a WSL2 terminal, and follow the macOS / Linux steps above exactly.
 
 ### Verify
 
