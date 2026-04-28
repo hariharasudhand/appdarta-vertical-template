@@ -1,0 +1,26 @@
+apiVersion: appdarta.io/v1
+kind: AgentSpec
+metadata:
+  name: sample-opea-agent
+  version: 1.0.0
+  description: |
+    Reference agent spec showing OPEA PromptSpec block.
+    Export with: darta export opea --agent specs/agents/opea/sample-agent.opea.yaml
+spec:
+  runtime: http
+  endpoint: http://localhost:8080
+
+  opea:
+    enabled: true
+    service-type: LLM
+    input-datatype: TextDoc
+    output-datatype: TextDoc
+    # prompt block — required for OPEA L2 compliance (prompt-metadata-declared check)
+    prompt:
+      template-version: "1.0.0"
+      context-strategy: rag        # "rag" | "memory" | "none"
+      max-context-tokens: 4096
+
+  roles:
+    - implementation
+    - review

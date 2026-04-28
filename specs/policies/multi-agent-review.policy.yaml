@@ -1,0 +1,37 @@
+apiVersion: appdarta.io/v1
+kind: PolicySpec
+metadata:
+  name: multi-agent-review-policy
+  version: 1.0.0
+  description: |
+    Reference multi-agent review policy.
+    Demonstrates validator + critique + consensus pattern.
+    Loaded at runtime from the appdarta-policies tank.
+    Sync with: darta policy sync --domain <your-domain>
+spec:
+  domain: finance
+  scope: orchestration
+
+  rules:
+    # Block if the primary agent's output confidence is below threshold.
+    - id: low-confidence-block
+      type: validator
+      condition: output.metadata.confidence_score < 0.7
+      action: block
+      message: "Output confidence below threshold — blocked by policy"
+
+    # Escalate to human review when transaction value exceeds limit.
+    - id: high-value-escalate
+      type: consensus
+      condition: input.metadata.amount_usd >= 50000
+      quorum-required: 2
+      action: escalate
+      message: "High-value transaction requires consensus review"
+
+    # Require critique retry for flagged transactions with low evidence.
+    - id: low-evidence-critique
+      type: critique
+      condition: output.metadata.evidence_count < 3
+      action: retry
+      max-retries: 1
+      message: "Insufficient evidence — requesting self-critique"
