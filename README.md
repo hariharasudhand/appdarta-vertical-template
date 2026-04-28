@@ -9,7 +9,7 @@
 
 # Darta Vertical Template
 
-> **Beta · vDR.0.6** — Active development. Early trials and feedback are welcome.
+> **Beta** — Active development. Early trials and feedback are welcome.
 
 This is the public starter template for a Darta vertical project.
 
@@ -67,7 +67,7 @@ curl -fsSL https://raw.githubusercontent.com/hariharasudhand/appdarta-framework/
 bash install_darta.sh
 ```
 
-The installer detects your OS and CPU automatically and downloads the right binary. When prompted, select **vDR.0.6**. Discard `install_darta.sh` after.
+The installer detects your OS and CPU automatically and downloads the right binary. When prompted, select **vDR.0.4**. Discard `install_darta.sh` after.
 
 ### Windows
 
@@ -138,16 +138,10 @@ darta deploy plan --project .
 | What you declare | File | Schema |
 |---|---|---|
 | An agent and its runtime | `specs/agents/*.yaml` | `AgentSpec` |
-| OPEA-compatible agent | `specs/agents/opea/*.yaml` | `AgentSpec` with `opea.prompt` block |
 | How agents coordinate | `specs/flows/*.yaml` | `FlowSpec` |
-| Decision rules + multi-agent policies | `specs/policies/*.yaml` | `PolicySpec` |
+| Decision rules | `specs/policies/*.yaml` | `PolicySpec` |
 | Domain knowledge | `specs/tanks/*.yaml` | `DataTankSpec` |
-| Gateway execution plan + multi-agent coordination | `specs/orchestration/*.yaml` | `OrchestrationSpec` |
-
-**vDR.0.6 reference examples included:**
-- `specs/orchestration/fraud-review.orchestration.yaml` — async handlers, `max-hops: 3`, validator + critique + consensus policies
-- `specs/policies/multi-agent-review.policy.yaml` — consensus and critique policy rules
-- `specs/agents/opea/sample-agent.opea.yaml` — OPEA PromptSpec block for L2 compliance
+| Gateway execution plan | `specs/orchestration/*.yaml` | `OrchestrationSpec` |
 
 You do not modify the platform. The framework owns the technical substrate — runtime dispatch, gateway, policy evaluation, tank integration, and AI/provider routing.
 
